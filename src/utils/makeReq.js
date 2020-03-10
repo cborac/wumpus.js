@@ -1,0 +1,24 @@
+const fetch = require("node-fetch")
+
+/**
+ * @param {String} endpoint - Discord endpoint
+ * @param {String} method - HTTP method
+ * @param {String} token - Discord Bot token
+ * @param {JSON} body - Push body
+ */
+
+module.exports = async function (endpoint, method, bot, body) {
+    const options = {
+        method: method,
+        headers: {
+            Authorization: `Bot ${bot.token}`
+        }
+    }
+    if(body){
+        Object.assign(options, {body: body})
+    }
+    return fetch(`https://discordapp.com/api/v6${endpoint}`, options)
+        .then(async res => {
+            return await res.text()
+        })
+}
