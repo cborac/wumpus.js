@@ -1,6 +1,7 @@
 const fetch = require("node-fetch")
 
 /**
+ * Makes a request on desired method to a desired endpoint of discord
  * @param {String} endpoint - Discord endpoint
  * @param {String} method - HTTP method
  * @param {String} token - Discord Bot token
