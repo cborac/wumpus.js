@@ -12,12 +12,24 @@ class RichEmbed {
 
         /**
          * Adds a field to the embed
-         * @param {fieldObject} fieldObject - An embed field object
+         * @param {String} name - Name of the field
+         * @param {String} value - Value of the field
+         * @param {Boolean} [inline = false]
          * @returns {RichEmbed}
          * @example
-         * 
+         * const embed = new Discord.RichEmbed()
+         *  .addField("\u200b", "Welcome to the server")
+         *  .addField("Rules", "There are no rules!", true);
          */
-        this.addField = function(fieldObject){
+
+        this.addField = function(name, value, inline){
+            const fieldObject = {
+                name: name,
+                value: value
+                }
+            if (inline) {
+                Object.assign(fieldObject, {inline: inline})
+            }
             if(this.rawEmbed.fields){
                 Object.assign(this.rawEmbed, {fields: [fieldObject]})
                 return this;
@@ -28,11 +40,12 @@ class RichEmbed {
         }
         /**
          * Sets the title of the embed
-         * @param title - It will be converted to a "String"
+         * @param {String} title
          * @returns {RichEmbed}
          */
         this.title = function(title){
-            Object.assign(this.rawEmbed, {title: title.stringify()})
+            if (typeof title != "string") return console.error("Title can only be a string")
+            Object.assign(this.rawEmbed, {title: title})
             return this;
         }
         /**
