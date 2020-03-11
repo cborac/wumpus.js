@@ -54,7 +54,7 @@ class RichEmbed {
          * @return {RichEmbed}
          * 
          */
-        this.timeStamp() = function(date){
+        this.timeStamp = function(date){
             if (typeof date instanceof Date){
                 Object.assign(this.rawEmbed, {timestamp : date.toISOString()})
                 return this;
@@ -71,14 +71,14 @@ class RichEmbed {
          * Sets the embed color
          * @param {Color} color - Color
          */
-        this.color() = function(color){
+        this.color = function(color){
             Object.assign(this.rawEmbed, {color: resolveColor(color)})
         }
         /**
          * Sets the description of the embed
          * @param {String} - Description
          */
-        this.description() = function (text) {
+        this.description = function (text) {
             Object.assign(this.rawEmbed, {description: text})
         }
         /**
