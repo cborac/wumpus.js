@@ -1,7 +1,7 @@
 const req = require("../utils/makeReq.js")
 const makeObject = require("../utils/objectinator.js")
-const fetchUser = require("../actions/fetchUser.js")
 const EventEmitter = require('events').EventEmitter;
+
 /**
  * @constructor
  * @extends EventEmitter
@@ -11,11 +11,13 @@ const EventEmitter = require('events').EventEmitter;
 class Bot extends EventEmitter{
     constructor() {
         super()
-        this.token = undefined;
-        this.user = undefined;
+        
+        this.token = null;
+        this.user = null;
         this.fetchUser = async function (userID) {
             return await fetchUser(userID, this.token);
         }
+        
         this.login = function (token) {
 
             this.token = token
@@ -49,7 +51,15 @@ class Bot extends EventEmitter{
             return this.user;
         }
     }
-
+    
+    /**
+     * Gets User object of the user by id
+     * @param {String} id 
+     * @returns {Promise<UserObject>}
+     */
+    async fetchUser(id){
+        return makeObject(await req(`/users/${userID}`, "GET", this.token)(), "User")
+    }
 
 }
 
