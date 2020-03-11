@@ -1,5 +1,9 @@
+const Bot = require("./Bot/Bot.js")
+const RichEmbed = require("./DiscordObjects/RichEmbed.js")
+
 module.exports = {
-    Bot: require("./Bot/Bot.js")
+    Bot: Bot,
+    RichEmbed: RichEmbed
 }
 
 

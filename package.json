@@ -1,5 +1,5 @@
 {
-  "name": "wumpujs",
+  "name": "wumpusjs",
   "version": "1.0.0",
   "description": "A Discord API wrapper",
   "main": "src/index.js",
