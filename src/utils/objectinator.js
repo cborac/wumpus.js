@@ -1,5 +1,3 @@
-const req = 
-
 /**
  * @param {Object} rawData - An object
  * @param {Range} type - Can be User, Guild, Channel, Member

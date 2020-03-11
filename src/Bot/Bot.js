@@ -12,20 +12,22 @@ class Bot extends EventEmitter{
     constructor() {
         super()
         this.token = undefined;
-        this.user = (async () => { return makeObject(await req("/users/@me", "GET", this), "User"); })();
+        this.user = undefined;
         this.fetchUser = async function (userID) {
-            return await fetchUser(userID, this);
+            return await fetchUser(userID, this.token);
         }
         this.login = function (token) {
 
             this.token = token
+
+            this.user = (async () => { return makeObject(await req("/users/@me", "GET", this.token), "User"); })();
 
             const WebSocket = require('ws');
 
             const ws = new WebSocket("wss://gateway.discord.gg/?v=6&encoding=json")
 
             ws.on("message", message => {
-                console.log(JSON.parse(message))
+                this.emit("debug", JSON.parse(message))
             })
 
             ws.on("open", () => {
@@ -40,9 +42,11 @@ class Bot extends EventEmitter{
                 this.emit("ready")
             })
 
+
             ws.on("close", () => {
-                console.log("Connection has been closed!")
+                this.emit("debug", "Connection has been closed!")
             })
+            return this.user;
         }
     }
 
