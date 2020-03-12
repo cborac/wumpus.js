@@ -1,6 +1,7 @@
-const req = require("../utils/makeReq.js")
-const makeObject = require("../utils/objectinator.js")
+const APIHandler = require("../API/APIHandler")
+const User = require("../Structures/User")
 const EventEmitter = require('events').EventEmitter;
+const WebSocket = require('ws');
 
 /**
  * @constructor
@@ -8,12 +9,13 @@ const EventEmitter = require('events').EventEmitter;
  * @emits ready - Events will be added soon
  */
 
-class Bot extends EventEmitter{
+export default class Bot extends EventEmitter{
     constructor() {
         super()
         
         this.token = null;
         this.user = null;
+        this.id = null;
         this.fetchUser = async function (userID) {
             return await fetchUser(userID, this.token);
         }
@@ -23,10 +25,9 @@ class Bot extends EventEmitter{
             this.token = token
 
             this.user = (async () => { return makeObject(await req("/users/@me", "GET", this.token), "User"); })();
+            
 
-            const WebSocket = require('ws');
-
-            const ws = new WebSocket("wss://gateway.discord.gg/?v=6&encoding=json")
+            const ws = new WebSocket("wss://gateway.discord.gg/?v=6&encoding=json", { agent: APIHandler.UserAgent })
 
             ws.on("message", message => {
                 this.emit("debug", JSON.parse(message))
@@ -58,9 +59,7 @@ class Bot extends EventEmitter{
      * @returns {Promise<UserObject>}
      */
     async fetchUser(id){
-        return makeObject(await req(`/users/${userID}`, "GET", this.token)(), "User")
+        return new User(await APIHand(`/users/${userID}`, "GET", this.token)(), "User")
     }
 
 }
-
-module.exports = Bot
