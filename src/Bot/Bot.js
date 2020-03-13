@@ -59,7 +59,7 @@ export default class Bot extends EventEmitter{
      * @returns {Promise<UserObject>}
      */
     async fetchUser(id){
-        return new User(await APIHand(`/users/${userID}`, "GET", this.token)(), "User")
+        return new User(await APIHandler.get(`/users/${userID}`, this.token)())
     }
 
 }
