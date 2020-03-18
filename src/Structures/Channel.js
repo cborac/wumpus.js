@@ -1,12 +1,17 @@
-import SnowFlakeBase from "../Bot/SnowflakeBase"
+const SnowFlakeBase = require("../Bot/SnowFlakeBase")
 
 /**
  * @class
+ * @constructor
  * @param {Object} channelData - Channel Object that has been retrieven by discord
  */
 
-export default class Channel extends SnowFlakeBase{
-    constructor(channelData){
+class Channel extends SnowFlakeBase{
+    constructor(){
+
+        super()
+
+        channelData = this.raw
 
         this.id = channelData.id
 
@@ -27,3 +32,5 @@ export default class Channel extends SnowFlakeBase{
         }})()
     }
 }
+
+module.exports = Channel

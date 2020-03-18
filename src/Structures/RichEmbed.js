@@ -3,7 +3,7 @@
  * @class
  */
 
-export default class RichEmbed{
+class RichEmbed{
     /**
      * @constructor
      */
@@ -50,7 +50,7 @@ export default class RichEmbed{
      * @param {String} title
      * @returns {RichEmbed}
      */
-    title = function (title) {
+    setTitle = function (title) {
         if (typeof title != "string") return console.error("Title can only be a string")
         Object.assign(this.raw, { title: title })
         return this;
@@ -64,7 +64,7 @@ export default class RichEmbed{
      * @return {RichEmbed}
      * 
      */
-    timeStamp = function (date) {
+    addTimeStamp = function (date) {
         if (typeof date instanceof Date) {
             Object.assign(this.raw, { timestamp: date.toISOString() })
             return this;
@@ -84,7 +84,7 @@ export default class RichEmbed{
      * Sets the embed color
      * @param {Color} color - Color
      */
-    color = function (color) {
+    setColor = function (color) {
         Object.assign(this.raw, { color: resolveColor(color) })
     }
     
@@ -105,3 +105,5 @@ export default class RichEmbed{
      * @param {String} - URL
      */
 }
+
+module.exports = RichEmbed

@@ -9,7 +9,7 @@ const WebSocket = require('ws');
  * @emits ready - Events will be added soon
  */
 
-export default class Bot extends EventEmitter{
+class Bot extends EventEmitter{
     constructor() {
         super()
         
@@ -24,7 +24,7 @@ export default class Bot extends EventEmitter{
 
             this.token = token
 
-            this.user = (async () => { return makeObject(await req("/users/@me", "GET", this.token), "User"); })();
+            this.user = (async () => { return new User(await (new APIHandler(this.token)).get("/users/@me")) })();
             
 
             const ws = new WebSocket("wss://gateway.discord.gg/?v=6&encoding=json", { agent: APIHandler.UserAgent })
@@ -58,8 +58,9 @@ export default class Bot extends EventEmitter{
      * @param {String} id 
      * @returns {Promise<UserObject>}
      */
-    async fetchUser(id){
-        return new User(await APIHandler.get(`/users/${userID}`, this.token)())
+    async fetchUser(userID){
+        return new User(await new APIHandler(this.token).get(`/users/${userID}`)())
     }
 
 }
+module.exports = Bot

@@ -18,8 +18,7 @@ class APIHandler {
     constructor(token){
         this.UserAgent = new userAgent({ keepAlive: true })
         this.options = {
-            auth: `Bot ${token}`,
-            agent: UserAgent
+            auth: `Bot ${token}`
         }
     }
 
@@ -29,7 +28,7 @@ class APIHandler {
      * @param {String} endpoint 
      */
     async get(endpoint){
-        return fetch(`https://discordapp.com/api/v6${endpoint}`, options)
+        return fetch(`https://discordapp.com/api/v6${endpoint}`, Object.assign({method: "GET"}, this.options))
             .then(async res => {
                 return await res.json()
             })
@@ -43,7 +42,7 @@ class APIHandler {
     async post(endpoint, body){
         (typeof body instanceof JSON) ? 0: body = JSON.parse(body)
 
-        return fetch(`https://discordapp.com/api/v6${endpoint}`, Object.assign({body: body}, this.options))
+        return fetch(`https://discordapp.com/api/v6${endpoint}`, Object.assign({method: "POST", body: body}, this.options))
             .then(async res => {
                 return await res.json()
             })

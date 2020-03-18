@@ -2,7 +2,7 @@
  * Discord Attachment
  * @class
  */
-export default class Attachment{
+class Attachment{
     /**
      * @param
      * @param {Buffer|Stream} attachment 
@@ -13,3 +13,5 @@ export default class Attachment{
         if(name) this.attachment = name
      }
 }
+
+module.exports = Attachment
