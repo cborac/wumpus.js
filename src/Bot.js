@@ -43,7 +43,6 @@ class Bot extends EvenEmitter {
         });
 
         this.api.WS.on("MESSAGE_CREATE", d => {
-            this.emit("debug", d)
             this.emit("MESSAGE_CREATE", d);
         });
     }
