@@ -31,7 +31,7 @@ class Bot extends EvenEmitter {
 
 
         this.api.WS.onerror = e => {
-            this.gw.ws.terminate();
+            this.api.WS.terminate();
             throw new APIError(e);
         };
 
