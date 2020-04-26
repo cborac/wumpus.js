@@ -1,19 +1,19 @@
 const REST = require("./Utils/REST.js")
 const EvenEmitter = require("events").EventEmitter
-const GateWay = require("./WebSocket/index.js")
+const GateWay = require("./WebSocket/WebSocket.js")
+const Cache = require("./Utils/Cache.js")
+const Guild = require("./Structures/Guild.js")
+const Events = require("./Events/Events.js")
+
 /**
  * The Bot Itself
+ * @typedef {Bot} Bot
  * @class
- * @emits ready
  * @extends EvenEmitter
  */
 class Bot extends EvenEmitter {
     /**
-     * 
-     * @param {Object} ClientOptions 
-     * @param {String} ClientOptions.token
-     * @param {boolean} [ClientOptions.guildSub]
-     * @param {URL} [wss]
+     * @param {BotOptions} ClientOptions 
      */
     constructor({ token, guildSub, wss }) {
         super()
@@ -21,9 +21,18 @@ class Bot extends EvenEmitter {
         this.wss = (wss) ? wss : "wss://gateway.discord.gg/"
 
         this.private = {
-            token: token
+            token: token,
         }
 
+        /**
+         * @type {Cache}
+         */
+        this.guilds = new Cache()
+
+        /**
+         * API service of the bot
+         * @type {Object}
+         */
         this.api = {
             WS: new GateWay(token, this.wss, { guild_subscription: !!guildSub }),
             REST: new REST(this)
@@ -36,11 +45,7 @@ class Bot extends EvenEmitter {
         };
 
 
-        this.api.WS.on("READY", d => {
-            this.emit("debug", d)
-            this.user = d.user
-            this.emit("READY");
-        });
+        this.api.WS.on("info", (event, d) => Events[event](this, d))
 
         this.api.WS.on("MESSAGE_CREATE", d => {
             this.emit("MESSAGE_CREATE", d);

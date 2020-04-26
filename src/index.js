@@ -1,7 +1,5 @@
 module.exports = {
     Bot: require("./Bot.js"),
-    WebSocket: require("./WebSocket/index.JS"),
+    WebSocket: require("./WebSocket/WebSocket.js"),
     REST: require("./Utils/REST.js")
 }
-
-

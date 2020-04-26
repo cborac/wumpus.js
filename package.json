@@ -4,7 +4,8 @@
   "description": "A Discord API wrapper",
   "main": "src/index.js",
   "scripts": {
-    "test": "node test/index.js"
+    "test": "node test/index.js",
+    "declaration:build": "rm -f index.d.ts && tsc -p declaration.tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,9 @@
   "author": "Sardonyx78",
   "license": "MIT",
   "dependencies": {
+    "awesome-typescript-loader": "^5.2.1",
     "node-fetch": "^2.6.0",
+    "source-map-loader": "^0.2.4",
     "ws": "^7.2.3"
   }
 }

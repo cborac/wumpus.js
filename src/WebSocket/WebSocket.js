@@ -1,7 +1,6 @@
 const WebSocket = require("ws")
 const EventEmitter = require("events");
-const pack = (p) => JSON.stringify(p);
-const parse = (p) => JSON.parse(p)
+const Utils = require("../Utils/Utils.js")
 
 /**
  * Websocket Controller
@@ -22,7 +21,7 @@ class Gateway extends EventEmitter {
         this.ws = new WebSocket(wss, { handshakeTimeout: 99999 })
 
         this.ws.onopen = () => {
-            this.ws.send(pack(Object.assign(options, {
+            this.ws.send(Utils.pack(Object.assign(options, {
                 op: 2,
                 d: {
                     token,
@@ -36,17 +35,17 @@ class Gateway extends EventEmitter {
         }
 
         this.ws.on("message", (data) => {
-            data = parse(data)
+            data = Utils.parse(data)
             this.emit("t", data)
 
             if (data.op === 10) setInterval(() => this.ws.send(JSON.stringify({ op: 1 })), data.d.heartbeat_interval);
-            else if (data.op === 0) this.emit(data.t, data.d);
+            else if (data.op === 0) this.emit("info", data.t, data.d);
         })
     }
 
     __send(d, s, op) {
         if (!op) op = 0
-        this.ws.send(pack({ op, t, d }))
+        this.ws.send(Utils.pack({ op, t, d }))
     }
 }
 
