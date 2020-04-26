@@ -1,15 +1,14 @@
 const REST = require("./Utils/REST.js")
 const EvenEmitter = require("events").EventEmitter
 const GateWay = require("./WebSocket/WebSocket.js")
-const Cache = require("./Utils/Cache.js")
+const Cocktail = require("./Utils/Cocktail.js")
 const Guild = require("./Structures/Guild.js")
-const Events = require("./Events/Events.js")
+const Events = require("./Events/Gatherer.js")
 
 /**
  * The Bot Itself
- * @typedef {Bot} Bot
- * @class
  * @extends EvenEmitter
+ * @public
  */
 class Bot extends EvenEmitter {
     /**
@@ -25,16 +24,24 @@ class Bot extends EvenEmitter {
         }
 
         /**
-         * @type {Cache}
+         * All guilds that the bot is on
+         * @type {Cocktail}
          */
-        this.guilds = new Cache()
+        this.guilds = new Cocktail()
 
         /**
+         * All the channels that the bot is on
+         */
+        this.channels = new Cocktail()
+        
+        /**
          * API service of the bot
-         * @type {Object}
+         * @type {api}
+         * @property {GateWay} WS
+         * @property {REST} REST
          */
         this.api = {
-            WS: new GateWay(token, this.wss, { guild_subscription: !!guildSub }),
+            WS: new GateWay(this, this.wss, { guild_subscription: !!guildSub }),
             REST: new REST(this)
         }
 
@@ -44,8 +51,11 @@ class Bot extends EvenEmitter {
             throw new APIError(e);
         };
 
+        this.events = new Events(this)
 
-        this.api.WS.on("info", (event, d) => Events[event](this, d))
+        this.api.WS.on("info", (event, d) => {
+            this.events.do(event, d)
+        })
 
         this.api.WS.on("MESSAGE_CREATE", d => {
             this.emit("MESSAGE_CREATE", d);

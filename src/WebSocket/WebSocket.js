@@ -3,28 +3,26 @@ const EventEmitter = require("events");
 const Utils = require("../Utils/Utils.js")
 
 /**
- * Websocket Controller
- * @class
+ * Establishs connection between client and WSS
+ * @param {import("../Bot.js")} bot
+ * @param {String} wss
+ * @param {Object} options WS payload Options
  * @extends EventEmitter
  */
 
 class Gateway extends EventEmitter {
 
-    /**
-     * Establishs connection between client and WSS
-     * @param {String} token 
-     * @param {String} wss
-     * @param {Object} options WS payload Options
-     */
-    constructor(token, wss, options) {
+
+    constructor(bot, wss, options) {
         super()
         this.ws = new WebSocket(wss, { handshakeTimeout: 99999 })
 
         this.ws.onopen = () => {
+            bot.emit("debug", "%c[WS] <=> [Bot] Established!")
             this.ws.send(Utils.pack(Object.assign(options, {
                 op: 2,
                 d: {
-                    token,
+                    token: bot.private.token,
                     properties: {
                         $os: "linux",
                         $browser: "wumpus.js",

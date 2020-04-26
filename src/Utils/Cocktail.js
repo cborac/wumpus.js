@@ -4,10 +4,10 @@
  * @extends {Map}
  */
 
-class Cache extends Map {
+class Cocktail extends Map {
     constructor() {
         super()
     }
 }
 
-module.exports = Cache
+module.exports = Cocktail

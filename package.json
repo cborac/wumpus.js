@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "node test/index.js",
+    "buildjsdoc": "ts2jsdoc ./src",
     "declaration:build": "rm -f index.d.ts && tsc -p declaration.tsconfig.json"
   },
   "repository": {
@@ -18,9 +19,15 @@
   "author": "Sardonyx78",
   "license": "MIT",
   "dependencies": {
-    "awesome-typescript-loader": "^5.2.1",
     "node-fetch": "^2.6.0",
-    "source-map-loader": "^0.2.4",
+    "typescript": "^3.8.3",
     "ws": "^7.2.3"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "dotenv": "^8.2.0",
+    "jsdoc": "^3.6.4",
+    "source-map-loader": "^0.2.4",
+    "ts-jsdoc": "^3.1.1"
   }
 }

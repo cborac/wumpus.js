@@ -1,3 +1,6 @@
+const GuildChannel = require("./GuildChannel")
+const Cocktail = require("../Utils/Cocktail")
+
 /**
  * Represents a voice server region
  * @class
@@ -54,6 +57,8 @@ class Guild {
      */
     constructor(bot, data) {
 
+        this.bot = bot
+
 
         /**
          * The snowflake of the guild
@@ -72,7 +77,7 @@ class Guild {
 
 
         //Fetchs the all available voice servers for the guild
-        bot.api.REST.get(`/guilds/${data.id}/regions`).then(async res => {
+        this.bot.api.REST.get(`/guilds/${data.id}/regions`).then(async res => {
             res.json().then(servers => {
                 /**
                  * Region of the voice servers of the guild
@@ -104,6 +109,15 @@ class Guild {
          * @type {Number}
          */
         this.timeout = data.afk_timeout * 1000
+
+        this.channels = new Cocktail()
+
+        data.channels.forEach(c => {
+            let channel = null;
+            if (c.type === 0) channel = new GuildChannel(this.bot, c)
+            this.channels.set(c.id, channel)
+            this.bot.channels.set(c.id, channel)
+        })
 
 
         /**
@@ -151,7 +165,11 @@ class Guild {
          */
         this.mfa = data.mfa_level
 
-        this.widget = (data.widget_enabled) ? new TextChannel() : null
+        this.widgetChannel = (data.widget_enabled) ? this.channels.get(data.widget_channel_id) : null
+        this.system = {
+            //channel: (data.system_channel_id) ? this.channels.get(system_channel_id) : null,
+            //
+        } 
     }
 
 }
