@@ -1,5 +1,5 @@
 const Discord = require("../src/index.js")
-require("dotenv").config()
+if (!process.env.CI) require("dotenv").config()
 const token = process.env.TESTOKEN
 const Bot = new Discord.Bot({ token })
 
