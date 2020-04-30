@@ -4,7 +4,7 @@
   "description": "A Discord API wrapper",
   "main": "src/index.js",
   "scripts": {
-    "test": "node test/index.js",
+    "test": "env CI=true && node test/index.js",
     "buildjsdoc": "ts2jsdoc ./src",
     "declaration:build": "rm -f index.d.ts && tsc -p declaration.tsconfig.json"
   },
