@@ -12,7 +12,7 @@ Bot.on("debug", d => {
 Bot.on("READY", () => {
     Bot.user
     console.log("Ready!")
-    if (!!process.env.CI) process.exit(0)
+    if (!!process.env.CI) Bot.api.WS.close()
 })
 
 Bot.on("MESSAGE_CREATE", m => {

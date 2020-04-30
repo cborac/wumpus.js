@@ -25,7 +25,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm test
+    - run: npm check:run
       env:
         CI: true
         TESTOKEN: ${{ secrets.TESTOKEN }}
+    - run: npm check:lint

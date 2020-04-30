@@ -1,9 +1,9 @@
-const TextChannel = require("./TextChannel");
+const TextChannel = require('./TextChannel').default;
 
-class GuildChannel extends TextChannel{
-    constructor(bot, d) {
-        super(bot, d)
-    }
+class GuildChannel extends TextChannel {
+  constructor(bot, d) {
+    super(bot, d);
+  }
 }
 
-module.exports = GuildChannel
+module.exports = GuildChannel;

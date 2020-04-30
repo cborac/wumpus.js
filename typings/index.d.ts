@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+
+
 /**
  * Twitter's snowflake is the id system of Discord, they determine every each user. And they are totally unique.
  *
@@ -15,6 +18,7 @@
  * 
  * 
  * https://discordapp.com/developers/docs/reference#snowflakes
+ * @typedef Snowflake
  */
 type Snowflake = string;
 
@@ -31,6 +35,7 @@ interface GuildHashs {
 
 /**
  * Represents API slave of the bot
+ * @typedef api
  */
 interface api {
     WS: Gateway,
@@ -39,6 +44,7 @@ interface api {
 
 /**
  * Guild verification level
+ * @typedef GuildVerificationLevels
  */
 enum GuildVerificationLevels {
     /** unrestricted */
@@ -55,8 +61,9 @@ enum GuildVerificationLevels {
 
 /**
  * Bot options
+ * @typedef BotOptions
  */
-type BotOptions = {
+interface BotOptions {
     /** Application token */
     token: string,
     /** Guild event subscription */
@@ -119,4 +126,134 @@ enum ChannelTypes {
     parent,
     news,
     store
+}
+
+/**
+ * The pure GuildData that comes from the WS
+ * @typedef GuildData
+ */
+interface GuildData {
+    roles:                         RoleData[];
+    system_channel_id:             string;
+    mfa_level:                     number;
+    emojis:                        any[];
+    verification_level:            number;
+    region:                        string;
+    unavailable:                   boolean;
+    preferred_locale:              string;
+    features:                      any[];
+    channels:                      ChannelData[];
+    premium_tier:                  number;
+    owner_id:                      string;
+    afk_timeout:                   number;
+    public_updates_channel_id:     null;
+    vanity_url_code:               null;
+    name:                          string;
+    afk_channel_id:                null;
+    joined_at:                     string;
+    presences:                     PresenceData[];
+    member_count:                  number;
+    application_id:                null;
+    splash:                        null;
+    icon:                          string;
+    rules_channel_id:              null;
+    max_video_channel_users:       number;
+    banner:                        null;
+    explicit_content_filter:       number;
+    voice_states:                  any[];
+    discovery_splash:              null;
+    lazy:                          boolean;
+    premium_subscription_count:    number;
+    description:                   null;
+    members:                       MemberData[];
+    system_channel_flags:          number;
+    default_message_notifications: number;
+    large:                         boolean;
+    id:                            string;
+}
+
+ interface ChannelData {
+    user_limit?:           number;
+    type:                  number;
+    position:              number;
+    permission_overwrites: any[];
+    name:                  string;
+    id:                    string;
+    bitrate?:              number;
+    topic?:                string;
+    rate_limit_per_user?:  number;
+    parent_id?:            string;
+    nsfw?:                 boolean;
+    last_message_id?:      string;
+}
+
+ interface MemberData {
+    user:           UserData;
+    roles:          string[];
+    mute:           boolean;
+    joined_at:      string;
+    hoisted_role:   null;
+    deaf:           boolean;
+    premium_since?: null;
+    nick?:          null;
+}
+
+ interface UserData {
+    username:      string;
+    public_flags?: number;
+    id:            string;
+    discriminator: string;
+    avatar:        string;
+    bot?:          boolean;
+}
+
+ interface PresenceData {
+    user:          PresenceUser;
+    status:        string;
+    game:          Activity | null;
+    client_status: ClientStatus;
+    activities:    Activity[];
+}
+
+ interface Activity {
+    type:           number;
+    timestamps:     Timestamps;
+    state:          string;
+    name:           string;
+    id:             string;
+    details:        string;
+    created_at:     number;
+    assets:         ActivityAssets;
+    application_id: string;
+}
+
+ interface ActivityAssets {
+    small_text:  string;
+    small_image: string;
+    large_text:  string;
+    large_image: string;
+}
+
+ interface Timestamps {
+    start: number;
+}
+
+ interface ClientStatusData {
+    desktop?: string;
+    web?:     string;
+}
+
+ interface PartialUserData  {
+    id: string;
+}
+
+ interface RoleData {
+    position:    number;
+    permissions: number;
+    name:        string;
+    mentionable: boolean;
+    managed:     boolean;
+    id:          string;
+    hoist:       boolean;
+    color:       number;
 }

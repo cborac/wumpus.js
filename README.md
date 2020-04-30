@@ -1,7 +1,8 @@
-# wumpus.js
-[![Build Status](https://travis-ci.com/Sardonyx78/wumpus.js.svg?branch=master)](https://travis-ci.com/Sardonyx78/wumpus.js)
-![Node.js CI](https://github.com/Sardonyx78/wumpus.js/workflows/Node.js%20CI/badge.svg?branch=master)
+<div align="center" display="flex" flex-direction="column">
+    <a><image src="http://api.sardonyx.studio/img/🐱💀😎🤖🐶🤡🐱😮" width="200"></a>
+    <br />
+    <image src="https://github.com/Sardonyx78/wumpus.js/workflows/Node.js%20CI/badge.svg?branch=master">
+    <h1>Wumpus.js</h1>
+</div>
 
 A Discord API wrapper which is written in JavaScript
-# DOCUMENTATION
-Soon TM

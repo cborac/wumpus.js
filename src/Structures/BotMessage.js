@@ -1,24 +1,29 @@
-const Utils = require("../Utils/Utils")
+import { pack } from '../Utils/Utils';
 
 class Message {
-    constructor(){}
+  constructor() {}
 
-    /**
-     * 
-     * @param {String} content 
+  /**
+     *
+     * @param {String} content
      */
-    setContent(content) {
-        this.content = content
-        return this
-    }
+  setContent(content) {
+    this.content = content;
+    return this;
+  }
 
-    JSON() {
-        return Utils.pack({
-            content: this.content,
-            tts: !!this.tts,
-            embed: this.embed   
-        })
-    }
+  setEmbed(embed) {
+    this.embed = embed
+    return this;
+  }
+
+  JSON() {
+    return pack({
+      content: this.content,
+      tts: !!this.tts,
+      embed: this.embed,
+    });
+  }
 }
 
-module.exports = Message
+export default Message;

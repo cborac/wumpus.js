@@ -1,12 +1,12 @@
 {
   "name": "wumpus.js",
-  "version": "0.0.2",
+  "version": "0.0.3b",
   "description": "A Discord API wrapper",
   "main": "src/index.js",
   "scripts": {
-    "test": "env CI=true && node test/index.js",
-    "buildjsdoc": "ts2jsdoc ./src",
-    "declaration:build": "rm -f index.d.ts && tsc -p declaration.tsconfig.json"
+    "test": "node test/index.js",
+    "check:run": "env CI=true && node test/index.js",
+    "check:lint": "eslint src"
   },
   "repository": {
     "type": "git",
@@ -19,15 +19,22 @@
   "author": "Sardonyx78",
   "license": "MIT",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "node-fetch": "^2.6.0",
-    "typescript": "^3.8.3",
     "ws": "^7.2.3"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.30.0",
+    "@typescript-eslint/parser": "^2.30.0",
     "awesome-typescript-loader": "^5.2.1",
     "dotenv": "^8.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
     "jsdoc": "^3.6.4",
     "source-map-loader": "^0.2.4",
-    "ts-jsdoc": "^3.1.1"
+    "ts-jsdoc": "^3.1.1",
+    "typescript": "^3.8.3",
+    "typescript-eslint": "0.0.1-alpha.0"
   }
 }

@@ -1,7 +1,5 @@
-module.exports = {
-    Bot: require("./Bot.js"),
-    WebSocket: require("./WebSocket/WebSocket.js"),
-    REST: require("./Utils/REST.js"),
-    GuildChannel: require("./Structures/GuildChannel"),
-    BotMessage: require("./Structures/BotMessage")
-}
+export const Bot = require('./Bot.js').default;
+export const WebSocket = require('./WebSocket/WebSocket.js').default;
+export const REST = require('./Utils/REST.js').default;
+export const GuildChannel = require('./Structures/GuildChannel');
+export const BotMessage = require('./Structures/BotMessage').default;

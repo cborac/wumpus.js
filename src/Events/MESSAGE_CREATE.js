@@ -1,5 +1,5 @@
 function MESSAGE_CREATE(bot, d) {
-    bot.emit("MESSAGE_CREATE", d)
+  bot.emit('MESSAGE_CREATE', d);
 }
 
-module.exports = MESSAGE_CREATE
+module.exports = MESSAGE_CREATE;

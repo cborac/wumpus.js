@@ -5,9 +5,9 @@
  */
 
 class Cocktail extends Map {
-    constructor() {
-        super()
-    }
+  constructor() {
+    super();
+  }
 }
 
-module.exports = Cocktail
+export default Cocktail;
